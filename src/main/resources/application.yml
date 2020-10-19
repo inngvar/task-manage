@@ -1,0 +1,10 @@
+camunda:
+  bpm:
+    admin-user:
+      id: camunda
+      password: camunda
+      firstName: camunda
+    filter:
+      create: All tasks
+    authorization:
+      enabled: true

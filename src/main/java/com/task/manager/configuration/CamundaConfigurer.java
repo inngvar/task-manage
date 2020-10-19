@@ -1,4 +1,4 @@
-package com.task.manage.configuration;
+package com.task.manager.configuration;
 
 import org.camunda.bpm.engine.AuthorizationService;
 import org.camunda.bpm.engine.IdentityService;
