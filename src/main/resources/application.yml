@@ -1,3 +1,6 @@
+spring:
+  application:
+    name: task-manager
 camunda:
   bpm:
     admin-user:
@@ -8,3 +11,5 @@ camunda:
       create: All tasks
     authorization:
       enabled: true
+    database:
+      type: h2

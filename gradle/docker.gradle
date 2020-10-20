@@ -1,0 +1,22 @@
+jib {
+    from {
+        image = "adoptopenjdk:11-jre-hotspot"
+    }
+    to {
+        image = "${docker_url}:${project_version}"
+        tags =["latest"]
+        auth {
+            username = "${docker_auth_login}"
+            password = "${docker_auth_password}"
+        }
+    }
+    container {
+        entrypoint = ["bash", "-c", "chmod +x /entrypoint.sh && sync && /entrypoint.sh"]
+        ports = ["8080","8080"]
+        environment = [
+                SPRING_OUTPUT_ANSI_ENABLED: "ALWAYS",
+        ]
+        creationTime = "USE_CURRENT_TIMESTAMP"
+    }
+}
+

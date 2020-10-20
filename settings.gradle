@@ -1,1 +1,10 @@
+
+
+pluginManagement {
+    plugins {
+        id 'com.google.cloud.tools.jib' version "${jib_plugin_version}"
+    }
+}
+
+
 rootProject.name = 'task-manager'
