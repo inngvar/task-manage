@@ -13,3 +13,5 @@ camunda:
       enabled: true
     database:
       type: h2
+  deployment-resource-pattern:
+    - bp/*

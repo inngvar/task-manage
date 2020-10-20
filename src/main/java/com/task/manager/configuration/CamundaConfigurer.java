@@ -92,14 +92,14 @@ public class CamundaConfigurer {
         filter = createFilterByGroup(accountants, "Задачи Бухгалтерии");
         grantAccessToFilters(accountants.getId(), filter.getId(), Permissions.READ);
 
-        filter = createFilterByGroup(accountants, "Задачи Сотрудникам");
+        filter = createFilterByGroup(workers, "Задачи Сотрудникам");
         grantAccessToFilters(workers.getId(), filter.getId(), Permissions.READ);
 
-        filter = createFilterByGroup(accountants, "Задачи Секретариата");
+        filter = createFilterByGroup(secretariat, "Задачи Секретариата");
         grantAccessToFilters(secretariat.getId(), filter.getId(), Permissions.READ);
 
 
-        TaskQueryDto taskQueryDto  = new TaskQueryDto();
+        TaskQueryDto taskQueryDto = new TaskQueryDto();
         taskQueryDto.setAssignee("${currentUser()}");
         filter = filterService.newTaskFilter("Мои задачи")
                 .setQuery(taskQueryDto.toQuery(engine));
@@ -109,10 +109,17 @@ public class CamundaConfigurer {
         grantAccessToFilters(accountants.getId(), filter.getId(), Permissions.READ);
         grantAccessToFilters(administration.getId(), filter.getId(), Permissions.READ);
 
+        grantAccessToStartProcess("*", Permissions.ALL, administration.getId(), workers.getId(), accountants.getId(), secretariat.getId());
+
+    }
+
+    private void grantAccessToStartProcess(String resourceId, Permissions permissions, String... groups) {
+        Arrays.stream(groups).forEach(g->createAuth(g, resourceId, 6, permissions));
+        Arrays.stream(groups).forEach(g->createAuth(g, resourceId, 8, Permissions.CREATE));
     }
 
     private Filter createFilterByGroup(Group candidateGroup, String filterName) {
-        TaskQueryDto taskQueryDto  = new TaskQueryDto();
+        TaskQueryDto taskQueryDto = new TaskQueryDto();
         taskQueryDto.setCandidateGroup(candidateGroup.getId());
         Filter filter = filterService.newTaskFilter(filterName)
                 .setQuery(taskQueryDto.toQuery(engine));
@@ -170,5 +177,4 @@ public class CamundaConfigurer {
         userCredentialsDto.setPassword(password);
         return userCredentialsDto;
     }
-
 }

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Definitions_1mhg6z3" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.2.0">
+  <bpmn:process id="solbe-problem" name="Решение проблемы" isExecutable="true" camunda:jobPriority="50">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="problem" label="Проблемма" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_0pgjhzx</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_0pgjhzx" sourceRef="StartEvent_1" targetRef="solveProblem" />
+    <bpmn:userTask id="solveProblem" name="Выбор ршения" camunda:candidateGroups="administration">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="problem" label="Проблема" type="string" defaultValue="${problem}">
+            <camunda:properties>
+              <camunda:property id="readOnly" value="true" />
+            </camunda:properties>
+          </camunda:formField>
+          <camunda:formField id="resolution" label="Решение" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0pgjhzx</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ilze82</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_1ilze82" sourceRef="solveProblem" targetRef="Event_1hrx00x" />
+    <bpmn:endEvent id="Event_1hrx00x">
+      <bpmn:incoming>Flow_1ilze82</bpmn:incoming>
+      <bpmn:terminateEventDefinition id="TerminateEventDefinition_04wuq8y" />
+    </bpmn:endEvent>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="solbe-problem">
+      <bpmndi:BPMNEdge id="Flow_1ilze82_di" bpmnElement="Flow_1ilze82">
+        <di:waypoint x="370" y="107" />
+        <di:waypoint x="432" y="107" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0pgjhzx_di" bpmnElement="Flow_0pgjhzx">
+        <di:waypoint x="215" y="107" />
+        <di:waypoint x="270" y="107" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Activity_1cxoizo_di" bpmnElement="solveProblem">
+        <dc:Bounds x="270" y="67" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="89" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0vdbs85_di" bpmnElement="Event_1hrx00x">
+        <dc:Bounds x="432" y="89" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
